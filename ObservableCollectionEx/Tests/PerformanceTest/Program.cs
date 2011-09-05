@@ -14,19 +14,33 @@ namespace ObservableCollectionEx
     class Program
     {
         static int MaxCount = 10000;
-        static int Consumers = 1;
         static GenericParameterHelper[] data = new GenericParameterHelper[MaxCount+1];
-        static Stopwatch timer = new Stopwatch();
+        static Stopwatch timerCollection = new Stopwatch();
+        static Stopwatch timerObservableCollection = new Stopwatch();
+        static Stopwatch timerObservableCollectionEx = new Stopwatch();
+        static Stopwatch timerDelayed = new Stopwatch();
+        static Stopwatch timerDisabled = new Stopwatch();
         static Collection<GenericParameterHelper> _collection = new Collection<GenericParameterHelper>();
         static ObservableCollection<GenericParameterHelper> _original = new ObservableCollection<GenericParameterHelper>(data);
         static ObservableCollectionEx<GenericParameterHelper> _ex = new ObservableCollectionEx<GenericParameterHelper>(data);
 
         static void Main(string[] args)
         {
+            int Consumers;
+            try
+            {
+                Consumers = Convert.ToInt32(args[0]);
+            
+            }
+            catch 
+            { 
+                Consumers = 0;
+            }
+
             for (int i = 0; i < MaxCount; i++)
                 data[i] = new GenericParameterHelper(i);
 
-            Console.WriteLine("Initializing...");
+            Console.Write("Initializing...");
             foreach (var item in data)
             { 
                 _original.Remove(item);
@@ -43,28 +57,27 @@ namespace ObservableCollectionEx
             }
 
             //Output header 
-            Console.WriteLine("Testing performance...");
+            Console.Write("\rTesting performance...");
 
-            //timer.Reset();
-            //TimeCollection(_collection);
-            //Console.WriteLine("Collection:\t\t" + timer.ElapsedTicks.ToString());
+            TimeCollection(_collection, timerCollection);
 
-            timer.Reset();
-            TimeCollection(_original);
-            Console.WriteLine("ObservableCollection:\t" + timer.ElapsedTicks.ToString());
+            TimeCollection(_original, timerObservableCollection);
 
-            timer.Reset();
-            TimeCollection(_ex);
-            Console.WriteLine("ObservableCollectionEx:\t" + timer.ElapsedTicks.ToString());
+            TimeCollection(_ex, timerObservableCollectionEx);
 
             using (var disabled = _ex.DisableNotifications())
             {
                 // Collect now so it is not in the way during test
-                timer.Reset();
-                TimeCollection(disabled);
+                TimeCollection(disabled, timerDisabled);
             }
-            Console.WriteLine("Disabled Notification:\t" + timer.ElapsedTicks.ToString());
 
+            Console.WriteLine("\rCollection\tObservableCollection\tObservableCollectionEx\tDisabled\t");
+
+            Console.WriteLine(string.Format( "{0}\t\t{1}\t\t\t{2}\t\t\t{3}",  
+                                             timerCollection.ElapsedMilliseconds,
+                                             timerObservableCollection.ElapsedMilliseconds,
+                                             timerObservableCollectionEx.ElapsedMilliseconds,
+                                             timerDisabled.ElapsedMilliseconds));
 
             Debug.WriteLine("Done");
         }
@@ -82,7 +95,7 @@ namespace ObservableCollectionEx
         /// 
         /// </summary>
         /// <param name="collection"></param>
-        static void TimeCollection(IList<GenericParameterHelper> collection)
+        static void TimeCollection(IList<GenericParameterHelper> collection, Stopwatch timer)
         {
             GC.Collect();
             GC.WaitForFullGCComplete();
