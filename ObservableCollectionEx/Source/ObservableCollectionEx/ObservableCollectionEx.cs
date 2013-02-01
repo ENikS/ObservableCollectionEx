@@ -17,8 +17,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Reflection;
 
 
@@ -28,7 +26,9 @@ namespace System.Collections.ObjectModel
     /// Observable collection with ability to delay or suspend CollectionChanged notifications
     /// </summary>
     /// <typeparam name="T"></typeparam>
+#if !SILVERLIGHT
     [Serializable]
+#endif
     public class ObservableCollectionEx<T> : Collection<T>, INotifyCollectionChanged, INotifyPropertyChanged,
                                              IDisposable
     {
@@ -47,7 +47,9 @@ namespace System.Collections.ObjectModel
         /// <summary>
         /// Empty delegate used to initialize <see cref="CollectionChanged"/> event if it is empty
         /// </summary>
+#if !SILVERLIGHT
         [field: NonSerialized()]
+#endif
         private static readonly NotifyCollectionChangedEventHandler _emptyDelegate = delegate { };
 
         #endregion
@@ -61,26 +63,36 @@ namespace System.Collections.ObjectModel
         /// <summary>
         /// 
         /// </summary>
+#if !SILVERLIGHT
         [field: NonSerialized()]
+#endif
         private ReentryMonitor _monitor = new ReentryMonitor();
 
         /// <summary>
         /// Placeholder for all data related to delayed 
         /// notifications.
         /// </summary>
+#if !SILVERLIGHT
         [field: NonSerialized()]
+#endif
         private NotificationInfo _notifyInfo;
 
         /// <summary>
         /// Indicates if modification of container allowed during change notification.
         /// </summary>
+#if !SILVERLIGHT
         [field: NonSerialized()]
+#endif
         private bool _disableReentry;
 
+#if !SILVERLIGHT
         [field: NonSerialized()]
+#endif
         Action FireCountAndIndexerChanged = delegate { };
 
+#if !SILVERLIGHT
         [field: NonSerialized()]
+#endif
         Action FireIndexerChanged = delegate { };
 
         #endregion Private Fields
@@ -94,14 +106,18 @@ namespace System.Collections.ObjectModel
         /// <summary> 
         /// PropertyChanged event <see cref="INotifyPropertyChanged" />.
         /// </summary> 
+#if !SILVERLIGHT
         [field: NonSerializedAttribute()]
+#endif
         protected virtual event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary> 
         /// Occurs when the collection changes, either by adding or removing an item.
         /// </summary>
         /// <remarks>See <seealso cref="INotifyCollectionChanged"/></remarks>
+#if !SILVERLIGHT
         [field: NonSerialized()]
+#endif
         protected virtual event NotifyCollectionChangedEventHandler CollectionChanged = _emptyDelegate;
 
         #endregion Protected Fields
@@ -297,6 +313,7 @@ namespace System.Collections.ObjectModel
 
         #region Public Methods
 
+#if !SILVERLIGHT
         /// <summary>
         /// Move item at oldIndex to newIndex. 
         /// </summary> 
@@ -304,9 +321,10 @@ namespace System.Collections.ObjectModel
         {
             MoveItem(oldIndex, newIndex);
         }
+#endif
 
         /// <summary>
-        /// Returns an instance of <see cref="ObservableCollectionEx<T>"/>
+        /// Returns an instance of ObservableCollectionEx
         /// class which manipulates original collection but suppresses notifications
         /// untill this instance has been released and Dispose() method has been called.
         /// To supress notifications it is recommended to use this instance inside 
@@ -324,7 +342,7 @@ namespace System.Collections.ObjectModel
         /// do other type of opertaion you can allocate another wrapper by calling .DelayNotifications() on
         /// either original object or any delayed instances.
         /// </summary>
-        /// <returns><see cref="ObservableCollectionEx<T>"/></returns>
+        /// <returns>ObservableCollectionEx</returns>
         public ObservableCollectionEx<T> DelayNotifications()
         {
             return new ObservableCollectionEx<T>((null == _notifyInfo) ? this : _notifyInfo.RootCollection, true);
@@ -335,7 +353,7 @@ namespace System.Collections.ObjectModel
         /// Calling methods of this instance will modify original collection
         /// but will not generate any notifications.
         /// </summary>
-        /// <returns><see cref="ObservableCollectionEx<T>"/></returns>
+        /// <returns>ObservableCollectionEx</returns>
         public ObservableCollectionEx<T> DisableNotifications()
         {
             return new ObservableCollectionEx<T>((null == _notifyInfo) ? this : _notifyInfo.RootCollection, false);
@@ -408,6 +426,7 @@ namespace System.Collections.ObjectModel
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, originalItem, item, index));
         }
 
+#if !SILVERLIGHT
         /// <summary>
         /// Called by base class ObservableCollection&lt;T&gt; when an item is to be moved within the list; 
         /// raises a CollectionChanged event to any listeners. 
@@ -423,7 +442,7 @@ namespace System.Collections.ObjectModel
             FireIndexerChanged();
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, removedItem, newIndex, oldIndex));
         }
-
+#endif
 
         /// <summary>
         /// Raises a PropertyChanged event (per <see cref="INotifyPropertyChanged" />). 
@@ -555,7 +574,9 @@ namespace System.Collections.ObjectModel
 
         #region Private Types
 
+#if !SILVERLIGHT
         [Serializable()]
+#endif
         private class ReentryMonitor : IDisposable
         {
             #region Fields
@@ -656,7 +677,7 @@ namespace System.Collections.ObjectModel
                             };
                             wrapper.CollectionChanged(sender, args);
                             break;
-
+#if !SILVERLIGHT
                         case NotifyCollectionChangedAction.Move:
                             _newIndex = args.NewStartingIndex;
                             _newItems = args.NewItems;
@@ -668,7 +689,7 @@ namespace System.Collections.ObjectModel
                                     "Due to design of NotifyCollectionChangedEventArgs combination of multiple Move operations is not possible");
                             };
                             break;
-
+#endif
                         case NotifyCollectionChangedAction.Reset:
                             IsCountChanged = true;
                             wrapper.CollectionChanged = (s, e) => { AssertActionType(e); };
@@ -695,18 +716,31 @@ namespace System.Collections.ObjectModel
                             return new NotifyCollectionChangedEventArgs(_action.Value);
 
                         case NotifyCollectionChangedAction.Add:
+#if !SILVERLIGHT
                             return new NotifyCollectionChangedEventArgs(_action.Value, _newItems);
+#else
+                            return new NotifyCollectionChangedEventArgs(_action.Value, _newItems, _newIndex);
+#endif
 
                         case NotifyCollectionChangedAction.Remove:
+#if SILVERLIGHT
+                            return new NotifyCollectionChangedEventArgs(_action.Value, _oldItems, _oldIndex);
+#else
                             return new NotifyCollectionChangedEventArgs(_action.Value, _oldItems);
 
                         case NotifyCollectionChangedAction.Move:
                             return new NotifyCollectionChangedEventArgs(_action.Value, _oldItems[0], _newIndex, _oldIndex);
-
+#endif
                         case NotifyCollectionChangedAction.Replace:
+#if !SILVERLIGHT
                             return new NotifyCollectionChangedEventArgs(_action.Value, _newItems, _oldItems);
+#else
+                            return new NotifyCollectionChangedEventArgs(_action.Value, _newItems, _newIndex);
+#endif
                     }
 
+#if !SILVERLIGHT
+#endif
                     return null;
                 }
             }
