@@ -2,13 +2,9 @@ version: 1.4.{build}
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
-dotnet_csproj:
-  patch: true
-  file: '**\*.csproj'
-  version: '{version}'
-  package_version: '{version}'
 before_build:
 - cmd: dotnet restore
 build:
+  publish_nuget: true
   parallel: true
   verbosity: minimal
