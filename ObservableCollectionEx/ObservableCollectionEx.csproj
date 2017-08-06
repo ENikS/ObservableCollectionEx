@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.1;netstandard1.4;net35;net40;net461</TargetFrameworks>
+    <TargetFrameworks>netcoreapp1.1;netstandard1.4;net40;net461</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright © Eugene Sadovoi 2011</Copyright>
     <PackageLicenseUrl>https://github.com/ENikS/ObservableCollectionEx/blob/master/LICENSE</PackageLicenseUrl>
