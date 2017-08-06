@@ -8,4 +8,4 @@ build:
   parallel: true
   verbosity: minimal
 on_success:
-- cmd: rename ObservableCollectionEx\bin\Release\ObservableCollectionEx.0.0.0.nupkg ObservableCollectionEx\bin\Release\ObservableCollectionEx.%APPVEYOR_BUILD_VERSION%.nupkg
+- cmd: echo "%APPVEYOR_BUILD_VERSION%"
