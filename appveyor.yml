@@ -7,5 +7,3 @@ before_build:
 build:
   parallel: true
   verbosity: minimal
-after_build:
-- cmd: msbuild ObservableCollectionEx.sln /t:pack /p:Configuration=%CONFIGURATION%;PackageVersion=%APPVEYOR_BUILD_VERSION%;IncludeSource=true
