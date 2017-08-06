@@ -7,8 +7,6 @@ before_build:
 build:
   parallel: true
   verbosity: minimal
-after_build:
-- cmd: >-
-    cd ObservableCollectionEx\bin\Release
-    
-    ren ObservableCollectionEx.0.0.0.nupkg "ObservableCollectionEx.%APPVEYOR_BUILD_VERSION%.nupkg"
+artifacts:
+- path: ObservableCollectionEx\bin\Release\ObservableCollectionEx.0.0.0.nupkg
+  name: ObservableCollectionEx.1.4.0.nupkg
