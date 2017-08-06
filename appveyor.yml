@@ -10,4 +10,5 @@ build:
 after_build:
 - cmd: >-
     cd ObservableCollectionEx\bin\Release
+    
     ren ObservableCollectionEx.0.0.0.nupkg "ObservableCollectionEx.%APPVEYOR_BUILD_VERSION%.nupkg"
