@@ -2,5 +2,7 @@ version: 1.4.{build}
 image: Visual Studio 2017 Preview
 configuration: Release
 platform: Any CPU
+before_build:
+- cmd: dotnet restore
 build:
   verbosity: minimal
