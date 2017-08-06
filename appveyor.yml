@@ -5,6 +5,7 @@ platform: Any CPU
 before_build:
 - cmd: dotnet restore
 build:
-  publish_nuget: true
   parallel: true
   verbosity: minimal
+after_build:
+- cmd: msbuild ObservableCollectionEx\ObservableCollectionEx.csproj /t:pack /p:Configuration=%CONFIGURATION%;PackageVersion=%APPVEYOR_BUILD_VERSION%;IncludeSource=true
