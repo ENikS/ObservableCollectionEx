@@ -1,10 +1,6 @@
 version: 1.4.{build}
 image: Visual Studio 2017
-dotnet_csproj:
-  patch: true
-  file: '**\*.csproj'
-  version: '{version}'
-  package_version: '{version}'
+configuration: Release
+platform: Any CPU
 build:
   verbosity: minimal
-configuration: Release
