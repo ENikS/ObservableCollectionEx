@@ -8,4 +8,4 @@ build:
   parallel: true
   verbosity: minimal
 after_build:
-- cmd: msbuild ObservableCollectionEx\ObservableCollectionEx.csproj /t:pack /p:Configuration=%CONFIGURATION%;PackageVersion=%APPVEYOR_BUILD_VERSION%;IncludeSource=true
+- cmd: msbuild ObservableCollectionEx.sln /t:pack /p:Configuration=%CONFIGURATION%;PackageVersion=%APPVEYOR_BUILD_VERSION%;IncludeSource=true
