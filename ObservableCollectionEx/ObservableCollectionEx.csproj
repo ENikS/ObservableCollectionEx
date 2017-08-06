@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp1.1;netstandard1.4;net35;net40;net461</TargetFrameworks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Copyright>Copyright © Eugene Sadovoi 2011</Copyright>
+    <PackageLicenseUrl>https://github.com/ENikS/ObservableCollectionEx/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ENikS/ObservableCollectionEx</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ENikS/ObservableCollectionEx</RepositoryUrl>
+    <PackageTags>ObservableCollection Collection delay disable notification INotifyCollectionChanged CollectionChanged</PackageTags>
+    <Description>ObservableCollection with ability to delay notifications</Description>
+    <AssemblyVersion>1.1.1.2</AssemblyVersion>
+    <FileVersion>1.1.1.2</FileVersion>
+    <Version>1.4.0</Version>
+    <Authors>Eugene Sadovoi</Authors>
+    <Company>ENikS</Company>
+    <Product>Enhanced ObservableCollection</Product>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp1.1' and '$(TargetFramework)' != 'netstandard1.4' ">
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+</Project>
