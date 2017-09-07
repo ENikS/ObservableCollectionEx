@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp1.1;netcoreapp2.0;netstandard1.4;netstandard1.6;netstandard2.0;net35;net40;net461;net47</TargetFrameworks>
+    <TargetFrameworks>sl5;netcoreapp1.1;netcoreapp2.0;netstandard1.4;netstandard1.6;netstandard2.0;net35;net40;net461;net47</TargetFrameworks>
     <!--<TargetFramework>netstandard2.0</TargetFramework>-->
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright © Eugene Sadovoi 2011</Copyright>
