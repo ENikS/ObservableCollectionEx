@@ -10,3 +10,4 @@ build:
 artifacts:
 - path: ObservableCollectionEx\bin\Release\ObservableCollectionEx.0.0.0.nupkg
   name: ObservableCollectionEx.$(APPVEYOR_BUILD_VERSION).nupkg
+  
