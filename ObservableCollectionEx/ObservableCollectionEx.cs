@@ -26,7 +26,7 @@ namespace System.Collections.ObjectModel
     /// Observable collection with ability to delay or suspend CollectionChanged notifications
     /// </summary>
     /// <typeparam name="T"></typeparam>
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
     [Serializable]
 #endif
     public class ObservableCollectionEx<T> : Collection<T>, INotifyCollectionChanged, INotifyPropertyChanged,
@@ -47,7 +47,7 @@ namespace System.Collections.ObjectModel
         /// <summary>
         /// Empty delegate used to initialize <see cref="CollectionChanged"/> event if it is empty
         /// </summary>
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
         [field: NonSerialized]
 #endif
         private static readonly NotifyCollectionChangedEventHandler _emptyDelegate = delegate { };
@@ -63,7 +63,7 @@ namespace System.Collections.ObjectModel
         /// <summary>
         /// 
         /// </summary>
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
         [field: NonSerialized]
 #endif
         private ReentryMonitor _monitor = new ReentryMonitor();
@@ -72,7 +72,7 @@ namespace System.Collections.ObjectModel
         /// Placeholder for all data related to delayed 
         /// notifications.
         /// </summary>
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
         [field: NonSerialized]
 #endif
         private NotificationInfo _notifyInfo;
@@ -80,17 +80,17 @@ namespace System.Collections.ObjectModel
         /// <summary>
         /// Indicates if modification of container allowed during change notification.
         /// </summary>
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
         [field: NonSerialized]
 #endif
         private bool _disableReentry;
 
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
         [field: NonSerialized]
 #endif
         Action FireCountAndIndexerChanged = delegate { };
 
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
         [field: NonSerialized]
 #endif
         Action FireIndexerChanged = delegate { };
@@ -106,7 +106,7 @@ namespace System.Collections.ObjectModel
         /// <summary> 
         /// PropertyChanged event <see cref="INotifyPropertyChanged" />.
         /// </summary> 
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
         [field: NonSerialized]
 #endif
         protected virtual event PropertyChangedEventHandler PropertyChanged;
@@ -115,7 +115,7 @@ namespace System.Collections.ObjectModel
         /// Occurs when the collection changes, either by adding or removing an item.
         /// </summary>
         /// <remarks>See <seealso cref="INotifyCollectionChanged"/></remarks>
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
         [field: NonSerialized]
 #endif
         protected virtual event NotifyCollectionChangedEventHandler CollectionChanged = _emptyDelegate;
@@ -544,12 +544,12 @@ namespace System.Collections.ObjectModel
 
                         foreach (Delegate delegateItem in _notifyInfo.RootCollection.CollectionChanged.GetInvocationList())
                         {
-#if !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
                             try
                             {
 #endif
                                 delegateItem.DynamicInvoke(new object[] { _notifyInfo.RootCollection, args });
-#if !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
                             }
                             catch (TargetInvocationException e)
                             {
@@ -578,7 +578,7 @@ namespace System.Collections.ObjectModel
 
         #region Private Types
 
-#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4
+#if !SILVERLIGHT && !NETCOREAPP1_1 && !NETSTANDARD1_4 && !NETCOREAPP1_1 && !NETCOREAPP2_0 && !NETSTANDARD1_4 && !NETSTANDARD1_6 && !NETSTANDARD2_0
         [Serializable()]
 #endif
         private class ReentryMonitor : IDisposable
