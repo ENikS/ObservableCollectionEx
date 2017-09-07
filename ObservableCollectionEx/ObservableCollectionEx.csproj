@@ -1,13 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <TargetFrameworks>netcoreapp1.1;netcoreapp2.0;netstandard1.4;netstandard1.6;netstandard2.0;net35;net40;net461;net47</TargetFrameworks>
+    <TargetFrameworks>net35;net40;netstandard1.0;netstandard2.0</TargetFrameworks>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
   
   <PropertyGroup>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright © Eugene Sadovoi 2011</Copyright>
     <PackageLicenseUrl>https://github.com/ENikS/ObservableCollectionEx/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/ENikS/ObservableCollectionEx</PackageProjectUrl>
@@ -26,7 +27,7 @@
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp1.1' and '$(TargetFramework)' != 'netcoreapp2.0' and '$(TargetFramework)' != 'netstandard1.4' and '$(TargetFramework)' != 'netstandard1.6' and '$(TargetFramework)' != 'netstandard2.0' ">
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.0' and '$(TargetFramework)' != 'netstandard2.0' ">
     <Reference Include="WindowsBase" />  
   </ItemGroup>
 
