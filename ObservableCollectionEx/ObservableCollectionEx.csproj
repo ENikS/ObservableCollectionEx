@@ -1,8 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TargetFrameworks>netcoreapp1.1;netcoreapp2.0;netstandard1.4;netstandard1.6;netstandard2.0;net35;net40;net461;net47</TargetFrameworks>
-    <!--<TargetFramework>netstandard2.0</TargetFramework>-->
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Copyright>Copyright © Eugene Sadovoi 2011</Copyright>
     <PackageLicenseUrl>https://github.com/ENikS/ObservableCollectionEx/blob/master/LICENSE</PackageLicenseUrl>
