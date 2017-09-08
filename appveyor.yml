@@ -10,4 +10,8 @@ build:
 artifacts:
 - path: ObservableCollectionEx\bin\Release\ObservableCollectionEx.0.0.0.nupkg
   name: ObservableCollectionEx.$(APPVEYOR_BUILD_VERSION).nupkg
-  
+deploy:
+  provider: NuGet
+  api_key:
+    secure: YTeVDkzGJhG5PBai41X7hhlxMbEhQ9EDHMltQBnjht0IJaJe+2Oe+5DuMIl4+SFy
+  skip_symbols: true  
