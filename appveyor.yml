@@ -13,5 +13,5 @@ build:
   parallel: true
   verbosity: minimal
 artifacts:
-- path: **\*.nupkg
+  path: **\*.nupkg
   
