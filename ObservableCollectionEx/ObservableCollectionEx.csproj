@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/ENikS/ObservableCollectionEx</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ENikS/ObservableCollectionEx</RepositoryUrl>
     <PackageTags>ObservableCollection Collection delay disable notification INotifyCollectionChanged CollectionChanged</PackageTags>
-    <Description>ObservableCollection with ability to delay notifications</Description>
+    <Description>ObservableCollectionEx is designed to disable or delay notifications. The ObservanleCollectionEx is a direct replacement for ObservableCollection and could be used without any code modifications.</Description>
     <AssemblyVersion>1.4.0.0</AssemblyVersion>
     <FileVersion>1.4.0.0</FileVersion>
     <Version>0.0.0</Version>
