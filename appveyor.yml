@@ -1,11 +1,11 @@
-# version: 1.4.{build}
+version: 1.4.{build}
 image: Visual Studio 2022
 configuration: Release
 platform: Any CPU
 dotnet_csproj:
   patch: true
   file: '**\*.csproj'
-  # version: '{version}'
+  version: '1.4.1'
   # package_version: $(appveyor_build_version)
 before_build:
 - cmd: dotnet restore
@@ -13,5 +13,5 @@ build:
   parallel: true
   verbosity: minimal
 artifacts:
-  - path: '**\*.1.4.1.nupkg'
+  - path: '**\*.nupkg'
     name: ObservableCollectionEx 
