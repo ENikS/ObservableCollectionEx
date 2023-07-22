@@ -13,5 +13,5 @@ build:
   parallel: true
   verbosity: minimal
 artifacts:
-  - path: ObservableCollectionEx\bin\**\*.nupkg
+  - path: '**\*.1.4.1.nupkg'
     name: ObservableCollectionEx 
